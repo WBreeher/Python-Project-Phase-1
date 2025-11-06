@@ -1,0 +1,21 @@
+Phase 1 – Python Fundamentals (Weeks 3–10)
+
+Goal: Master core Python concepts.
+
+Topics:
+
+Variables, data types, loops, conditionals
+
+Functions, modules, classes/objects (OOP basics)
+
+Lists, dictionaries, sets, tuples
+
+File I/O and exception handling
+
+Practice:
+
+Small scripts: calculator, to-do list, text-based game
+
+Daily coding exercises (HackerRank, LeetCode easy)
+
+Outcome: Solid Python foundation.
