@@ -9,6 +9,7 @@ MASTER_FILE = "MasterHash.txt" # placeholder file name
 
 if not os.path.exists(MASTER_FILE):
     while True:
+        print("(Note: Typing is hidden for security)")
         pw = getpass("Set a new master password: ")
         confirm = getpass("Confirm master password: ")
 
