@@ -1,9 +1,11 @@
 # This is a simple Password Generator and Saver.
 
 import secrets
+import string
 import hashlib
 import os
 from getpass import getpass
+import sys
 
 MASTER_FILE = "MasterHash.txt" # placeholder file name
 
@@ -18,6 +20,7 @@ if not os.path.exists(MASTER_FILE):
             with open(MASTER_FILE, "w") as f:
                 f.write(hashed)
             print("Master password created and saved securely.")
+            Master_Hash = hashed
             break
         else:
             print("Passwords do not match. Please try again.\n")
@@ -27,6 +30,7 @@ else:
 
 Lists = [] # Creates a list for the password saver
 logged_in = False # ensures that user is authorized
+Running = True
 
 try:
     with open("Password.txt", "r") as file: # Upon program opening, it'll attempt to find the placeholder file
@@ -38,14 +42,16 @@ while True:
     try:
         if not logged_in:
             user_input = getpass("Enter Master Password or quit: ")
+
+            if user_input.lower() == "quit":
+                break
+
             user_hash = hashlib.sha256(user_input.encode()).hexdigest()
 
             if user_hash == Master_Hash:
                 logged_in = True
                 print("Access granted.")
                 
-            elif user_input == "quit":
-                break
 
             else:
                 print("Invalid Master Password.")
@@ -59,7 +65,8 @@ while True:
                 while True:
                     GAction = input("Generation Menu: Generate or go back?").strip().lower()
                     if GAction == "generate":
-                        PassGen = "".join(secrets.choices("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&*", k=12))
+                        chars = ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&*")
+                        PassGen = "".join(secrets.choice(chars) for _ in range(12))
                         Title = input("Please title this passsword: ")
                         Lists.append(f"{Title} = {PassGen}")
                         with open("Password.txt", "a") as file:
@@ -102,7 +109,7 @@ while True:
 
             elif action == "quit":
                 print("Thanks for using my simple Password Generator/Saver! Logging Out. . .")
-                break
+                sys.exit()
             else:
                 print("Invalid Selection. Try again.")
                 continue
